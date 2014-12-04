@@ -80,7 +80,7 @@ public void collide()
     if (dist(sterling.get(l).getX(), sterling.get(l).getY(), stevieG.getX(), stevieG.getY())<20)
     {
       sterling.remove(l);
-      System.out.println("boom");
+      
     }
   }
 }
@@ -203,12 +203,12 @@ class Bullet extends Floater
     myCenterX=name.getX();
     myCenterY=name.getY();
     myPointDirection=name.getPointDirection();
-    System.out.println(myPointDirection);
+    //System.out.println(myPointDirection);
     double dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5 * Math.cos(dRadians) + name.getDirectionX();
     myDirectionY = 5 * Math.sin(dRadians) + name.getDirectionY();
     // System.out.println(myDirectionX + ", " + myDirectionY);
-    System.out.println(name.getDirectionX()+", "+name.getDirectionY());
+    //System.out.println(name.getDirectionX()+", "+name.getDirectionY());
   }
 
   public void show()
