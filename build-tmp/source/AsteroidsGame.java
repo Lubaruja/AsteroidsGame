@@ -18,6 +18,7 @@ SpaceShip stevieG = new SpaceShip();
 Star [] sturridge = new Star[150];
 ArrayList <Asteroid> sterling = new ArrayList <Asteroid>();
 ArrayList <Bullet> hendo = new ArrayList <Bullet>();
+boolean end=false;
 public void setup() 
 {
   size(600,600);
@@ -54,6 +55,14 @@ public void draw()
     hendo.get(i).move();
   }
   collide();
+  if (end==true)
+  {
+    background(0);
+    fill(255);
+    textSize(20);
+    textAlign(CENTER);
+    text("You have mislaid your ship.", 300,300);
+  }
   
 }
 
@@ -69,11 +78,11 @@ public void keyPressed()
   }
   if(key=='a')
   {
-    stevieG.rotate(-90); 
+    stevieG.rotate(-9); 
   }
   if(key=='d')
   {
-    stevieG.rotate(90);
+    stevieG.rotate(9);
   }
   if(key=='h')
   {
@@ -89,6 +98,7 @@ public void keyPressed()
   }
 }
 
+
 public void collide()
 {
   for(int l=0; l<sterling.size(); l++)
@@ -96,10 +106,24 @@ public void collide()
     if (dist(sterling.get(l).getX(), sterling.get(l).getY(), stevieG.getX(), stevieG.getY())<20)
     {
       sterling.remove(l);
-      System.out.println("boom");
+      end=true;
+    }
+  }
+
+  for (int k=0; k<sterling.size(); k++)
+  {
+    for (int m=0; m<hendo.size(); m++)
+    {
+      if (dist(hendo.get(m).getX(), hendo.get(m).getY(), sterling.get(k).getX(), sterling.get(k).getY())<20)
+      {
+        sterling.remove(k);
+        hendo.remove(m);
+        break;
+      }
     }
   }
 }
+
 
 
 class Star
@@ -142,6 +166,13 @@ class SpaceShip extends Floater
     myPointDirection=0;
   }
   
+  public void show() 
+  {
+    stroke(255);
+    strokeWeight(2);
+    super.show();
+  }
+
   public void setX(int x) {myCenterX=x;}
   public int getX() {return (int)myCenterX;}
   public void setY(int y) {myCenterY=y;}
@@ -219,19 +250,26 @@ class Bullet extends Floater
     myCenterX=name.getX();
     myCenterY=name.getY();
     myPointDirection=name.getPointDirection();
-    System.out.println(myPointDirection);
+    //System.out.println(myPointDirection);
     double dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5 * Math.cos(dRadians) + name.getDirectionX();
     myDirectionY = 5 * Math.sin(dRadians) + name.getDirectionY();
     // System.out.println(myDirectionX + ", " + myDirectionY);
-    System.out.println(name.getDirectionX()+", "+name.getDirectionY());
+    //System.out.println(name.getDirectionX()+", "+name.getDirectionY());
   }
 
   public void show()
   {
     stroke(255);
+    strokeWeight(2);
     noFill();
-    ellipse((float)(myCenterY), (float)(myCenterY),5,5);
+    ellipse((float)(myCenterX), (float)(myCenterY),5,5);
+  }
+
+   public void move ()   
+  {        
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;   
   }
 
 
