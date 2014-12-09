@@ -18,7 +18,8 @@ SpaceShip stevieG = new SpaceShip();
 Star [] sturridge = new Star[150];
 ArrayList <Asteroid> sterling = new ArrayList <Asteroid>();
 ArrayList <Bullet> hendo = new ArrayList <Bullet>();
-boolean end=false;
+boolean lose=false;
+boolean win=false;
 public void setup() 
 {
   size(600,600);
@@ -30,6 +31,7 @@ public void setup()
   {
     sterling.add(new Asteroid());
   }  
+  
 }
 
 public void draw() 
@@ -37,6 +39,10 @@ public void draw()
   background(0);
   stevieG.move();
   stevieG.show();
+  if (sterling.size()==0)
+  {
+    win=true;
+  }
 
   for (int j = 0; j<sturridge.length; j++)
   {
@@ -55,15 +61,22 @@ public void draw()
     hendo.get(i).move();
   }
   collide();
-  if (end==true)
+  if (lose==true)
   {
     background(0);
     fill(255);
     textSize(20);
     textAlign(CENTER);
-    text("You have mislaid your ship.", 300,300);
+    text("You're in a right bugger's muddle, ennit?", 300,300);
   }
-  
+  if (win==true)
+  {
+    background(0);
+    fill(255);
+    textSize(20);
+    textAlign(CENTER);
+    text("Come off it, son! This game's a bloddy doddle.", 300, 300);
+  }
 }
 
 public void keyPressed()
@@ -106,7 +119,7 @@ public void collide()
     if (dist(sterling.get(l).getX(), sterling.get(l).getY(), stevieG.getX(), stevieG.getY())<20)
     {
       sterling.remove(l);
-      end=true;
+      lose=true;
     }
   }
 
@@ -123,7 +136,6 @@ public void collide()
     }
   }
 }
-
 
 
 class Star
