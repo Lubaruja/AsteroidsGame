@@ -59,7 +59,7 @@ public void draw()
     fill(255);
     textSize(20);
     textAlign(CENTER);
-    text("Come off it, son! This game's a bloddy doddle.", 300, 300);
+    text("Come off it, son! This game's a bloody doddle.", 300, 300);
   }
 }
 
